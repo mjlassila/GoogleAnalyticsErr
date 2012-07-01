@@ -39,7 +39,8 @@ class GoogleAnalyticsPlugin
         'uninstall',
         'public_theme_footer',
         'config',
-        'config_form'
+        'config_form',
+        'initialize'
     );
 
     /**
@@ -122,7 +123,7 @@ class GoogleAnalyticsPlugin
         echo '<div id="googleanalyticserr_form">';
         echo __v()->formLabel(
             GOOGLE_ANALYTICS_ACCOUNT_OPTION,
-            'Google Analytics Account ID:'
+            __('Google Analytics Account ID:')
         );
         echo __v()->formText(
             GOOGLE_ANALYTICS_ACCOUNT_OPTION,
@@ -130,19 +131,17 @@ class GoogleAnalyticsPlugin
             array('rows' => '15', 'cols' => '80')
         );
         echo '</div>';
+        
 
         // Now for some instructions. We're user friendly!
-        echo <<<EOF
-<p>To find your Google Analytics Account ID, follow these steps:</p>
-<ol style="list-style: decimal inside;">
-<li>Create or log into a 
-<a href="https://www.google.com/analytics/" target="_blank">
-Google Analytics</a> account;</li>
-<li> Add a &quot;Website Profile&quot; for this Omeka.net website; </li>
-<li>Copy the value for Account ID found next to the site URL (starts with &quot;UA-&quot;);</li>
-<li>Paste it into the text field above and Save Changes.</li>
-</ol>
-EOF;
+        
+echo '<p>' . __('To find your Google Analytics Account ID, follow these steps:') . '</p>'
+. '<ol style="list-style: decimal inside;">'
+. '<li>' . __('Create or log into a <a href="https://www.google.com/analytics/" target="_blank"> Google Analytics</a> account') . '</li>'
+. '<li>' .  __('Add a &quot;Website Profile&quot; for this Omeka.net website') . '</li>'
+. '<li>' .  __('Copy the value for Account ID found next to the site URL (starts with &quot;UA-&quot;)') . '</li>'
+. '<li>' .  __('Paste it into the text field above and Save Changes') . '</li>'
+. '</ol>'; 
     }
 
     /**
@@ -166,6 +165,16 @@ var accountId = $jsAccountId;
 $js;
 </script>
 EOF;
+    }
+
+    /**
+     * Initializes the plugin.
+     *
+     * @return void
+     **/
+    public function initialize()
+    {
+        add_translation_source(dirname(__FILE__) . '/languages');
     }
 }
 
